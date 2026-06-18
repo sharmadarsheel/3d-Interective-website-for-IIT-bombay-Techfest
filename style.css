@@ -1,0 +1,955 @@
+/* ============================================================
+   TECHFEST 2026 IIT BOMBAY — Premium 3D Interactive CSS
+   ============================================================ */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  /* Color Palette */
+  --neon-cyan: #00f5ff;
+  --neon-magenta: #ff007f;
+  --neon-green: #39ff14;
+  --white: #ffffff;
+  --text-primary: #f8f7f9;
+  --text-muted: rgba(248, 247, 249, 0.6);
+  --bg-space: #030008;
+
+  /* Gradients */
+  --grad-cyan-magenta: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  --grad-magenta-green: linear-gradient(135deg, var(--neon-magenta), var(--neon-green));
+
+  /* Glow Effects */
+  --cyan-glow: 0 0 15px rgba(0, 245, 255, 0.5);
+  --magenta-glow: 0 0 15px rgba(255, 0, 127, 0.5);
+  --green-glow: 0 0 15px rgba(57, 255, 20, 0.5);
+
+  /* Glassmorphism */
+  --glass-bg: rgba(6, 2, 14, 0.5);
+  --glass-bg-heavy: rgba(6, 2, 14, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-cyan: rgba(0, 245, 255, 0.2);
+
+  /* Typography */
+  --font-heading: 'Orbitron', sans-serif;
+  --font-sub: 'Rajdhani', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Spacing */
+  --max-width: 1200px;
+  --nav-height: 80px;
+
+  /* Transitions */
+  --trans-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-base: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-slow: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ============================================================
+   1. RESET & BASE STYLES
+   ============================================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  background-color: var(--bg-space);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-space);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 245, 255, 0.2);
+  border-radius: 10px;
+  border: 2px solid var(--bg-space);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-cyan);
+  box-shadow: var(--cyan-glow);
+}
+
+/* Selection Color */
+::selection {
+  background: rgba(255, 0, 127, 0.3);
+  color: var(--white);
+}
+
+/* Fixed WebGL Canvas Background */
+#webgl-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ============================================================
+   2. REVEAL & FLOATING ANIMATIONS
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--trans-slow), transform var(--trans-slow);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes glitch {
+  0% { text-shadow: 0 0 4px var(--neon-cyan); }
+  50% { text-shadow: -2px 0 var(--neon-magenta), 2px 0 var(--neon-green); }
+  100% { text-shadow: 0 0 4px var(--neon-cyan); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* ============================================================
+   3. STICKY NAVBAR
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  z-index: 1000;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background var(--trans-base), border-color var(--trans-base);
+}
+
+.navbar.scrolled {
+  background: var(--glass-bg-heavy);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom-color: var(--glass-border);
+}
+
+.nav-container {
+  max-width: var(--max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: 2px;
+}
+
+.logo-symbol {
+  color: var(--neon-cyan);
+  text-shadow: var(--cyan-glow);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-family: var(--font-sub);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  position: relative;
+  transition: color var(--trans-fast);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--neon-cyan);
+  box-shadow: var(--cyan-glow);
+  transition: width var(--trans-fast);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--neon-cyan);
+  text-shadow: var(--cyan-glow);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-cta {
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--bg-space);
+  background: var(--neon-cyan);
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  box-shadow: var(--cyan-glow);
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast);
+}
+
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px var(--neon-cyan);
+}
+
+/* Mobile Toggle Hamburger */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle-bar {
+  width: 28px;
+  height: 2px;
+  background: var(--white);
+  transition: var(--trans-base);
+}
+
+/* ==========================================================
+   4. LAYOUT SECTIONS & GENERALS
+   ========================================================== */
+section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 100px 0;
+}
+
+.section-container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 10;
+  pointer-events: none; /* Let pointer events go to canvas if necessary */
+}
+
+/* Enable pointer events on active interactive content */
+.interactive-panel {
+  pointer-events: auto;
+}
+
+.section-header {
+  margin-bottom: 4rem;
+}
+
+.section-tag {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--neon-magenta);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  text-shadow: var(--magenta-glow);
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.1;
+}
+
+.text-gradient {
+  background: var(--grad-cyan-magenta);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   5. HERO SECTION
+   ============================================================ */
+.hero {
+  padding-top: 150px;
+}
+
+.hero-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 700px;
+}
+
+.hero-hud-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 245, 255, 0.05);
+  border: 1px solid var(--glass-border-cyan);
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
+
+.hud-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  box-shadow: var(--cyan-glow);
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.hud-text {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--neon-cyan);
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  animation: glitch 3s infinite ease-in-out;
+}
+
+.hero-subtitle {
+  font-family: var(--font-sub);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 1rem 2.2rem;
+  border-radius: 4px;
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast);
+}
+
+.btn-primary {
+  color: var(--bg-space);
+  background: var(--neon-cyan);
+  box-shadow: var(--cyan-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px var(--neon-cyan);
+}
+
+.btn-secondary {
+  color: var(--white);
+  border: 1px solid var(--glass-border-cyan);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-3px);
+  border-color: var(--neon-magenta);
+  box-shadow: var(--magenta-glow);
+}
+
+/* ============================================================
+   6. EVENTS SECTION
+   ============================================================ */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.event-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 2.5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--trans-base), box-shadow var(--trans-base), transform var(--trans-base);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--neon-cyan);
+  box-shadow: var(--cyan-glow);
+}
+
+.event-icon-box {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--neon-cyan);
+  text-shadow: var(--cyan-glow);
+  background: rgba(0, 245, 255, 0.05);
+}
+
+.event-card:nth-child(even) .event-icon-box {
+  color: var(--neon-magenta);
+  text-shadow: var(--magenta-glow);
+  background: rgba(255, 0, 127, 0.05);
+}
+
+.event-card:nth-child(even):hover {
+  border-color: var(--neon-magenta);
+  box-shadow: var(--magenta-glow);
+}
+
+.event-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.event-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.event-cta {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.event-card:nth-child(even) .event-cta {
+  color: var(--neon-magenta);
+}
+
+/* ============================================================
+   7. EXHIBITIONS SECTION
+   ============================================================ */
+.exhibits-layout {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
+.exhibits-desc-box {
+  flex: 1;
+  max-width: 450px;
+}
+
+.exhibits-desc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.exhibits-cards {
+  flex: 1.5;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.exhibit-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  transition: border-color var(--trans-base), box-shadow var(--trans-base);
+}
+
+.exhibit-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 0%, rgba(57, 255, 20, 0.08) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--trans-base);
+  pointer-events: none;
+}
+
+.exhibit-card:hover {
+  border-color: var(--neon-green);
+  box-shadow: var(--green-glow);
+}
+
+.exhibit-card:hover::before {
+  opacity: 1;
+}
+
+.exhibit-label {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--neon-green);
+  text-shadow: var(--green-glow);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.exhibit-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.exhibit-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   8. REGISTRATION & CYBER-TICKET
+   ============================================================ */
+.register-layout {
+  display: flex;
+  gap: 4rem;
+  align-items: stretch;
+}
+
+.register-form-box {
+  flex: 1;
+  background: var(--glass-bg-heavy);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 3rem;
+  position: relative;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  padding: 1rem;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: border-color var(--trans-fast), box-shadow var(--trans-fast);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+  box-shadow: var(--cyan-glow);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.submit-btn {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 1rem;
+  border-radius: 4px;
+  color: var(--bg-space);
+  background: var(--grad-cyan-magenta);
+  cursor: pointer;
+  box-shadow: var(--cyan-glow);
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast);
+  margin-top: 1rem;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(255, 0, 127, 0.6);
+}
+
+/* 3D Ticket Flip Container */
+.ticket-wrapper {
+  flex: 1.2;
+  perspective: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ticket-card {
+  width: 420px;
+  height: 260px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ticket-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.ticket-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Ticket Front: Placeholder/Intro */
+.ticket-front {
+  background: var(--glass-bg-heavy);
+  border: 1px dashed var(--glass-border-cyan);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.ticket-front-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid var(--neon-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  color: var(--neon-cyan);
+  text-shadow: var(--cyan-glow);
+  margin-bottom: 1.5rem;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.ticket-front-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.ticket-front-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Ticket Back: Dynamic Pass */
+.ticket-back {
+  background: linear-gradient(135deg, rgba(10, 2, 24, 0.95), rgba(6, 2, 14, 0.95));
+  border: 2px solid var(--neon-cyan);
+  box-shadow: var(--cyan-glow);
+  transform: rotateY(180deg);
+  padding: 1.75rem;
+  justify-content: space-between;
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 245, 255, 0.15);
+  padding-bottom: 0.75rem;
+}
+
+.ticket-logo {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: 1px;
+}
+
+.ticket-badge {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--neon-magenta);
+  border: 1px solid var(--neon-magenta);
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.ticket-body {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.ticket-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-family: var(--font-heading);
+  font-size: 0.55rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.info-value {
+  font-family: var(--font-sub);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.ticket-barcode-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.ticket-barcode {
+  width: 80px;
+  height: 60px;
+  background-image: repeating-linear-gradient(90deg, 
+    var(--white) 0px, var(--white) 2px, 
+    transparent 2px, transparent 6px, 
+    var(--white) 6px, var(--white) 10px, 
+    transparent 10px, transparent 12px
+  );
+  opacity: 0.8;
+}
+
+.ticket-id {
+  font-family: var(--font-heading);
+  font-size: 0.6rem;
+  letter-spacing: 1.5px;
+  color: var(--neon-cyan);
+}
+
+.ticket-footer {
+  border-top: 1px solid rgba(0, 245, 255, 0.15);
+  padding-top: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.ticket-gate {
+  color: var(--text-muted);
+}
+
+.ticket-status {
+  font-family: var(--font-heading);
+  color: var(--neon-green);
+  text-shadow: var(--green-glow);
+}
+
+/* ==========================================================
+   9. FOOTER
+   ========================================================== */
+.footer {
+  background: rgba(3, 0, 8, 0.95);
+  border-top: 1px solid var(--glass-border);
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer-logo {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.footer-logo span {
+  color: var(--neon-cyan);
+}
+
+.footer-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================
+   10. RESPONSIVE BREAKPOINTS
+   ========================================================== */
+@media (max-width: 1024px) {
+  .events-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .exhibits-layout {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .exhibits-desc-box {
+    max-width: 100%;
+  }
+
+  .register-layout {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .ticket-wrapper {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 70px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .exhibits-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .register-form-box {
+    padding: 2rem;
+  }
+}

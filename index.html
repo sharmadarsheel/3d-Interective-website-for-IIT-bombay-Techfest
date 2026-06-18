@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TECHFEST 2026 — Asia's Largest Science and Technology Festival, IIT Bombay. Experience the 3D interactive WebGL portal.">
+    <meta name="theme-color" content="#030008">
+    <title>TECHFEST 2026 | IIT Bombay</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- 3D WebGL Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Sticky Navigation -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo" aria-label="Techfest IIT Bombay Home">
+                <span class="logo-symbol">⬡</span>
+                <span class="logo-text">TECHFEST</span>
+            </a>
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="none"><a href="#hero" class="nav-link active" role="menuitem">Core</a></li>
+                <li role="none"><a href="#events" class="nav-link" role="menuitem">Events</a></li>
+                <li role="none"><a href="#exhibitions" class="nav-link" role="menuitem">Exhibits</a></li>
+                <li role="none"><a href="#register" class="nav-link" role="menuitem">Portal</a></li>
+            </ul>
+            <a href="#register" class="nav-cta">Register Pass</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         1. HERO SECTION
+         ============================================= -->
+    <section class="hero" id="hero" aria-label="Hero Section">
+        <div class="section-container">
+            <div class="hero-layout reveal">
+                <div class="hero-hud-badge">
+                    <span class="hud-dot"></span>
+                    <span class="hud-text">IIT BOMBAY PORTAL // SECURE NODE</span>
+                </div>
+                <h1 class="hero-title">
+                    AMPLIFY<br>
+                    THE <span class="text-gradient">FUTURE.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Enter the digital frontier of Techfest 2026, IIT Bombay. Asia's largest science and technology festival. Shaping evolution through innovation.
+                </p>
+                <div class="hero-cta-group interactive-panel">
+                    <a href="#events" class="btn-primary">Explore Sectors</a>
+                    <a href="#register" class="btn-secondary">Get Gate Pass</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         2. EVENTS SECTION
+         ============================================= -->
+    <section class="events" id="events" aria-label="Events Section">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-tag">// COMPETITION HORIZONS</span>
+                <h2 class="section-title">TECHFEST <span class="text-gradient">SECTORS</span></h2>
+            </div>
+            
+            <div class="events-grid interactive-panel">
+                <!-- Sector 1 -->
+                <div class="event-card reveal">
+                    <div class="event-icon-box" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="event-title">IITB Hackathon</h3>
+                    <p class="event-desc">A 36-hour cryptography, AI scaling, and security marathon. Solve real-world industrial statements under expert mentorship.</p>
+                    <a href="#register" class="event-cta">
+                        Register Pass
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+
+                <!-- Sector 2 -->
+                <div class="event-card reveal">
+                    <div class="event-icon-box" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3 class="event-title">Robowars</h3>
+                    <p class="event-desc">The ultimate mechanical gladiator battles inside the massive IIT Bombay dome. High-speed kinetic weapons colliding in combat.</p>
+                    <a href="#register" class="event-cta">
+                        Register Pass
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+
+                <!-- Sector 3 -->
+                <div class="event-card reveal">
+                    <div class="event-icon-box" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3 class="event-title">Techfest Summit</h3>
+                    <p class="event-desc">Lectures and panels by Nobel Laureates and industry titans discussing quantum, Web3, and biological sciences.</p>
+                    <a href="#register" class="event-cta">
+                        Register Pass
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+
+                <!-- Sector 4 -->
+                <div class="event-card reveal">
+                    <div class="event-icon-box" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="event-title">Aeromodelling</h3>
+                    <p class="event-desc">Boeing National Aeromodelling competition. Design, simulate, and pilot custom RC model aircraft in spatial speed arenas.</p>
+                    <a href="#register" class="event-cta">
+                        Register Pass
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         3. EXHIBITIONS SECTION
+         ============================================= -->
+    <section class="exhibitions" id="exhibitions" aria-label="Exhibitions Section">
+        <div class="section-container">
+            <div class="exhibits-layout">
+                <div class="exhibits-desc-box reveal">
+                    <span class="section-tag">// WORLD-CLASS DESIGN</span>
+                    <h2 class="section-title">THE IITB <span class="text-gradient">EXPO</span></h2>
+                    <p class="exhibits-desc">
+                        Witness cutting-edge technologies from across the globe, including active humanoid robots, space rovers, and quantum computing prototypes.
+                    </p>
+                    <a href="#register" class="btn-primary interactive-panel">Book Guest Slot</a>
+                </div>
+
+                <div class="exhibits-cards interactive-panel">
+                    <!-- Exhibit 1 -->
+                    <div class="exhibit-card reveal">
+                        <div class="exhibit-label">SECTOR A</div>
+                        <h3 class="exhibit-title">Research Deck</h3>
+                        <p class="exhibit-desc">IIT Bombay research cells showing innovations in clean energy, drone arrays, and spatial telemetry.</p>
+                    </div>
+
+                    <!-- Exhibit 2 -->
+                    <div class="exhibit-card reveal">
+                        <div class="exhibit-label">SECTOR B</div>
+                        <h3 class="exhibit-title">Retina HUD</h3>
+                        <p class="exhibit-desc">Interactive holographic layouts demonstrating spatial computing, retina tracking, and tactile response sensors.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         4. REGISTRATION SECTION
+         ============================================= -->
+    <section class="register" id="register" aria-label="Registration Portal">
+        <div class="section-container">
+            <div class="register-layout">
+                <!-- Registration Input Panel -->
+                <div class="register-form-box reveal interactive-panel">
+                    <div class="section-header" style="margin-bottom: 2rem;">
+                        <span class="section-tag">// SECURE ENTRY GATE</span>
+                        <h2 class="section-title" style="font-size: 2rem;">GATEWAY <span class="text-gradient">PASS</span></h2>
+                    </div>
+
+                    <form id="techfestRegisterForm" onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="form-label" for="username">User Identity (Full Name)</label>
+                            <input class="form-input" id="username" type="text" placeholder="Enter Full Name" required autocomplete="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="useremail">Techfest Pass Email</label>
+                            <input class="form-input" id="useremail" type="email" placeholder="agent@techfest.org" required autocomplete="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="userbranch">Institute / College</label>
+                            <input class="form-input" id="userbranch" type="text" placeholder="e.g. IIT Bombay" required>
+                        </div>
+
+                        <button class="submit-btn" id="submitBtn" type="submit">GENERATE GATE PASS</button>
+                    </form>
+                </div>
+
+                <!-- 3D Interactive Ticket -->
+                <div class="ticket-wrapper reveal interactive-panel">
+                    <div class="ticket-card" id="ticketCard">
+                        <!-- Ticket Front (Awaiting scan / registration) -->
+                        <div class="ticket-face ticket-front">
+                            <div class="ticket-front-circle" aria-hidden="true">⬡</div>
+                            <h3 class="ticket-front-title">TECHFEST PASS</h3>
+                            <p class="ticket-front-desc">Generate your digital security pass using the secure portal to activate access nodes at IIT Bombay.</p>
+                        </div>
+
+                        <!-- Ticket Back (Dynamic pass generated) -->
+                        <div class="ticket-face ticket-back">
+                            <div class="ticket-header">
+                                <div class="ticket-logo">TECHFEST '26</div>
+                                <div class="ticket-badge">IIT BOMBAY</div>
+                            </div>
+                            <div class="ticket-body">
+                                <div class="ticket-info">
+                                    <div class="info-item">
+                                        <span class="info-label">PASS AGENT</span>
+                                        <span class="info-value" id="ticketName">DARSHEEL</span>
+                                    </div>
+                                    <div class="info-item" style="margin-top: 0.5rem;">
+                                        <span class="info-label">INSTITUTE</span>
+                                        <span class="info-value" id="ticketBranch">IIT BOMBAY</span>
+                                    </div>
+                                </div>
+                                <div class="ticket-barcode-box">
+                                    <div class="ticket-barcode" aria-hidden="true"></div>
+                                    <span class="ticket-id" id="ticketPassId">#TFT-8827-B</span>
+                                </div>
+                            </div>
+                            <div class="ticket-footer">
+                                <span class="ticket-gate">VENUE: POWAI, MUMBAI</span>
+                                <span class="ticket-status">IITB NODE SYNCED</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-logo">TECHFEST <span>IIT Bombay</span></div>
+            <p class="footer-text">© 2026 Techfest, IIT Bombay. All rights reserved. Created in the quantum matrix.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Custom Logic -->
+    <script src="js/app.js"></script>
+</body>
+</html>
